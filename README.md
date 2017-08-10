@@ -1,64 +1,49 @@
-This is the starter template for the final assessment project for Udacity's React Fundamentals course, developed by [React Training](https://reacttraining.com). The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
+# Myreads
 
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
-
-## What You're Getting
+## Usage
+To start the application run the following commands
 ```
-+--public/    
- |-- index.html - DO NOT MODIFY
- |-- favicon.ico - React Icon, You may change if you wish.
-+-- src/
- +-- icons/ - Helpful images for your app. Use at your discretion.
-  |-- add.svg
-  |-- arrow-back.svg
-  |-- arrow-drop-down.svg
- |-- App.js - This is the root of your app. Contains static HTML right now.
- |-- App.css - Styles for your app. Feel free to customize this as you desire.
- |-- App.test.js - Used for testing. Provided with Create React App. 
- Testing is encouraged, but not required.
- |-- BooksAPI.js - A JavaScript API for the provided Udacity backend. 
- Instructions for the methods are below.
- |-- index.js - You should not need to modify this file. It is used for DOM rendering only.
- |-- index.css - Global styles. You probably won't need to change anything here.
-|-- .gitignore 
-|-- CONTRIBUTING.MD - Information about contributing to this repo. 
-TL;DR - Fork and clone your own version of this to use it.
-|-- README.MD - This README file.
-|-- SEARCH_TERMS.md - The whitelisted short collection of available search terms 
-for you to use with your app.
-|-- package.json - npm package manager file. It's unlikely that you'll need to modify this.
+npm install
+npm start
 ```
+The application will now run on localhost:3000.
 
-Remember that good React design practice is to create new JS files for each component and use import/require statements to include them where they are needed.
+### Mainpage
+Three bookshelves will be shown
+* Currently Reading
+* Want to Read
+* Read
 
-## Backend Server
+At the bottom right of each book there is a drop down menu. In this menu the user can select a new bookshelf for the book. The book will then move to the choosen bookshelf.
+At the bottom of the page is a big plus icon. This is a link to the search page
 
-To simplify your development process, we've provided a backend server for you to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
-
-### `getAll()`
-* Returns a Promise which resolves to a JSON object containing a collection of book objects.
-* This collection represents the books currently in the bookshelves in your app.
-
-### `update(book, shelf)`
-* book: `<Object>` containing at minimum an `id` attribute
-* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]  
-* Returns a Promise which resolves to a JSON object containing the response data of the POST request
-
-### `search(query, maxResults)`
-* query: `<String>`
-* maxResults: `<Integer>` Due to the nature of the backend server, search results are capped at 20, even if this is set higher.
-* Returns a Promise which resolves to a JSON object containing a collection of book objects.
-* These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
+### Search page
+At the top left there is an arrow-left icon. This will bring the user back to the main page. The searchbar works as the user wil expect it to work. With the exception that only certain search terms are supporte. Please see SEARCH\_TERMS.md for a complete list.
+Below the searchbar the resulting books will be show. 
 
 ## Important
 The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results. 
 
-## create-react-app
+## Architecture
+From the original README
+> Remember that good React design practice is to create new JS files for each component and use import/require statements to include them where they are needed.
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+I have created / adapted the following components
+* Index.js --Added BrowserRouter
+* App.js --Navigation and communication with the backend.
+* SearchBooks.js --This component displays the search page
+* Bookcase.js --This component shows the main page
+* Bookshelf.js --Displays one shelf
+* Book.js --Displays one book
+* ShelfChangeMenu --Displays the menu to select the bookshelf to move the book
 
-## Contributing
+## Defensive programming
+Were possible I tried to account for inconsistent data. Books that return from the backend are not guaranteed to have a title, cover, or authors. To prevent error I supplied default values. For example
+```
+const title = book.title || 'Unknown';
+const authors = book.authors || ['Unknown'];
+const cover = (book.imageLinks && book.imageLinks.thumbnail) || "../images/nocover.jpg";
+```
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
