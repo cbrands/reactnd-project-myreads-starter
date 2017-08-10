@@ -32,6 +32,7 @@ class BooksApp extends React.Component {
     getBooksByQuery = (query, maxBooksShown) => {
         if (query && query !== '') {
             BooksAPI.search(query, maxBooksShown).then((foundBooks) => {
+                foundBooks.map(book => (this.state.books.filter((b) => b.id === book.id).map(b => book.shelf = b.shelf)))
                 this.setState({
                     foundBooks: foundBooks.sort(sortBy('title'))
                 });
