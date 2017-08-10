@@ -8,6 +8,7 @@ import Bookshelf from './Bookshelf'
 class Bookcase extends Component {
     static propTypes = {
         books: PropTypes.array.isRequired,
+        onChangeShelf: PropTypes.func.isRequired
     }
 
 
@@ -17,9 +18,18 @@ class Bookcase extends Component {
             <Header />
             <div className="list-books-content">
               <div>
-                <Bookshelf title={"Currently Reading"} books={this.props.books.filter(book => book.shelf==="currentlyReading")} />
-                <Bookshelf title={"Want to Read"} books={this.props.books.filter(book => book.shelf==="wantToRead")} />
-                <Bookshelf title={"Read"} books={this.props.books.filter(book => book.shelf==="read")} />
+                <Bookshelf
+                    title={"Currently Reading"}
+                    books={this.props.books.filter(book => book.shelf==="currentlyReading")}
+                    onChangeShelf={this.props.onChangeShelf}/>
+                <Bookshelf
+                    title={"Want to Read"}
+                    books={this.props.books.filter(book => book.shelf==="wantToRead")}
+                    onChangeShelf={this.props.onChangeShelf}/>
+                <Bookshelf
+                    title={"Read"}
+                    books={this.props.books.filter(book => book.shelf==="read")}
+                    onChangeShelf={this.props.onChangeShelf}/>
               </div>
             </div>
             <div className="open-search">

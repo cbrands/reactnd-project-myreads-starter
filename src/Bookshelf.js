@@ -5,7 +5,8 @@ import Book from './Book'
 class Bookshelf extends Component {
     static propTypes = {
         title: PropTypes.string.isRequired, 
-        books: PropTypes.array.isRequired
+        books: PropTypes.array.isRequired,
+        onChangeShelf: PropTypes.func.isRequired
     }
 
     render() {
@@ -17,7 +18,10 @@ class Bookshelf extends Component {
                     <ol className="books-grid">
                         {this.props.books.map((book) => (
                             <li key={book.id}>
-                                <Book title={book.title} authors={book.authors} imageLink={book.imageLinks.thumbnail} shelf={book.shelf}/>
+                                <Book
+                                    book={book}
+                                    shelf={book.shelf}
+                                    onChangeShelf={this.props.onChangeShelf}/>
                             </li>
                         ))}
                     </ol>
