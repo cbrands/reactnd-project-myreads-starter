@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
+import sortBy from 'sort-by'
 import SearchBooks from './SearchBooks'
 import Bookcase from './Bookcase'
 import './App.css'
@@ -32,7 +33,7 @@ class BooksApp extends React.Component {
         if (query && query !== '') {
             BooksAPI.search(query, maxBooksShown).then((foundBooks) => {
                 this.setState({
-                    foundBooks
+                    foundBooks: foundBooks.sort(sortBy('title'))
                 });
             })
         } else {
