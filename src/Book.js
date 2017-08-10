@@ -4,22 +4,24 @@ import ShelfChangeMenu from './ShelfChangeMenu'
 
 class Book extends Component {
     static propTypes = {
-        shelf: PropTypes.string.isRequired,
         onChangeShelf: PropTypes.func.isRequired
     }
 
     render() {
+        const book = this.props.book;
+        const title = book.title || 'Unknown';
+        const authors = book.authors || ['Unknown'];
+        const cover = (book.imageLinks && book.imageLinks.thumbnail) || "../images/nocover.jpg";
         return (
             <div className="book">
                           <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.book.imageLinks.thumbnail})` }}></div>
+                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${cover})` }}></div>
                             <ShelfChangeMenu
-                                book={this.props.book}
-                                shelf={this.props.shelf}
+                                book={book}
                                 onChangeShelf={this.props.onChangeShelf}/>
                           </div>
-                          <div className="book-title">{this.props.book.title}</div>
-                          <div className="book-authors">{this.props.book.authors.join(", ")}</div>
+                          <div className="book-title">{title}</div>
+                          <div className="book-authors">{authors.join(", ")}</div>
                         </div>
         )
     }
