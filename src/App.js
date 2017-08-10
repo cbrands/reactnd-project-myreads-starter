@@ -27,9 +27,14 @@ class BooksApp extends React.Component {
     }
     
     getBooksByQuery = (query, maxBooksShown) => {
-        BooksAPI.search(query, maxBooksShown).then((foundBooks)=> {
-            this.setState({ foundBooks });
-        })
+        if (query && query !== '') {
+            BooksAPI.search(query, maxBooksShown).then((foundBooks)=> {
+                this.setState({ foundBooks });
+            })
+        } else {
+            this.setState({foundBooks: []});
+        }
+
     }
 
   render() {

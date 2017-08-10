@@ -17,13 +17,9 @@ class SearchBooks extends Component {
   updateQuery = (event) => {
       const maxBooksShown = 20;
       const query = event.target.value;
-      if(query) {
-           this.setState({ query: query.trim() });
-          this.props.getBooksByQuery(query, maxBooksShown);
-      } else {
-          this.setState({query: '', foundBooks: []});
-      }
-   
+      console.log(query);
+      this.setState({ query: query.trim() });
+      this.props.getBooksByQuery(query, maxBooksShown);   
   }
 
     render() {
