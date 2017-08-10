@@ -10,22 +10,22 @@ class ShelfChangeMenu extends Component {
         super(props);
         this.state = {value: this.props.book.shelf || 'none'};
         this.handleChangeShelf = this.handleChangeShelf.bind(this);
-  }
+    }
 
-  handleChangeShelf = event => {
-    this.props.onChangeShelf(this.props.book, event.target.value);
-  }
+    handleChangeShelf = event => {
+        this.props.onChangeShelf(this.props.book, event.target.value);
+    }
 
     render() {
         return (
             <div className="book-shelf-changer">
-                    <select value={this.state.value} onChange={this.handleChangeShelf}>
-                        <option value="" disabled>Move to...</option>
-                        <option value="currentlyReading">Currently Reading</option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
-                        <option value="none">None</option>
-                    </select>
+                <select value={this.state.value} onChange={this.handleChangeShelf}>
+                    <option value="" disabled>Move to...</option>
+                    <option value="currentlyReading">Currently Reading</option>
+                    <option value="wantToRead">Want to Read</option>
+                    <option value="read">Read</option>
+                    <option value="none">None</option>
+                </select>
             </div>
         )
     }

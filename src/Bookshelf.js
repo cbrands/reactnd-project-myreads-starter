@@ -4,7 +4,7 @@ import Book from './Book'
 
 class Bookshelf extends Component {
     static propTypes = {
-        title: PropTypes.string.isRequired, 
+        title: PropTypes.string.isRequired,
         books: PropTypes.array.isRequired,
         onChangeShelf: PropTypes.func.isRequired
     }
@@ -12,8 +12,8 @@ class Bookshelf extends Component {
     render() {
         return (
             <div className="bookshelf">
-                  <h2 className="bookshelf-title">{this.props.title}</h2>
-                  <div className="bookshelf-books">
+                <h2 className="bookshelf-title">{this.props.title}</h2>
+                <div className="bookshelf-books">
                     <ol className="books-grid">
                         {this.props.books.map((book) => (
                             <li key={book.id}>
@@ -23,8 +23,8 @@ class Bookshelf extends Component {
                             </li>
                         ))}
                     </ol>
-                  </div>
                 </div>
+            </div>
         )
     }
 }
