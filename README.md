@@ -44,6 +44,3 @@ const title = book.title || 'Unknown';
 const authors = book.authors || ['Unknown'];
 const cover = (book.imageLinks && book.imageLinks.thumbnail) || "../images/nocover.jpg";
 ```
-
-
-
