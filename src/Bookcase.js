@@ -5,7 +5,7 @@ import Header from './Header'
 import Bookshelf from './Bookshelf'
 
 
-class ListBooks extends Component {
+class Bookcase extends Component {
     static propTypes = {
         books: PropTypes.array.isRequired,
     }
@@ -32,4 +32,4 @@ class ListBooks extends Component {
     }
 }
 
-export default ListBooks
+export default Bookcase
