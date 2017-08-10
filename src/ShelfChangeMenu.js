@@ -3,13 +3,12 @@ import PropTypes from 'prop-types'
 
 class ShelfChangeMenu extends Component {
     static propTypes = {
-        shelf: PropTypes.string.isRequired,
         onChangeShelf: PropTypes.func.isRequired
     }
 
     constructor(props) {
         super(props);
-        this.state = {value: this.props.shelf};
+        this.state = {value: this.props.book.shelf || 'none'};
         this.handleChangeShelf = this.handleChangeShelf.bind(this);
   }
 

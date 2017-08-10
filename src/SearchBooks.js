@@ -1,8 +1,33 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import Book from './Book'
 
 class SearchBooks extends Component {
+    static propTypes = {
+        foundBooks: PropTypes.array,
+        onChangeShelf: PropTypes.func.isRequired,
+        getBooksByQuery: PropTypes.func.isRequired
+    }
+
+  state = {
+    query: ''
+  }
+
+  updateQuery = (event) => {
+      const maxBooksShown = 20;
+      const query = event.target.value;
+      if(query) {
+           this.setState({ query: query.trim() });
+          this.props.getBooksByQuery(query, maxBooksShown);
+      } else {
+          this.setState({query: '', foundBooks: []});
+      }
+   
+  }
+
     render() {
+                console.log(this.props.foundBooks);
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -11,19 +36,20 @@ class SearchBooks extends Component {
                     className='close-search'
                     >Close</Link>
                 <div className="search-books-input-wrapper">
-                    {/* 
-                    NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                    You can find these search terms here:
-                    https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-                  
-                    However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                    you don't find a specific author or title. Every search is limited by search terms.
-                    */}
-                    <input type="text" placeholder="Search by title or author"/>
+                    <input type="text" placeholder="Search by title or author" onChange={this.updateQuery}/>
                 </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+                 {this.props.foundBooks.map((book) => (
+                            <li key={book.id}>
+                                <Book
+                                    book={book}
+                                    shelf={book.shelf}
+                                    onChangeShelf={this.props.onChangeShelf}/>
+                            </li>
+                        ))}
+                </ol>
             </div>
           </div>
         )

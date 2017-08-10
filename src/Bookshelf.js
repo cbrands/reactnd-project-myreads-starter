@@ -10,7 +10,6 @@ class Bookshelf extends Component {
     }
 
     render() {
-        console.log(this.props.books);
         return (
             <div className="bookshelf">
                   <h2 className="bookshelf-title">{this.props.title}</h2>
@@ -20,7 +19,6 @@ class Bookshelf extends Component {
                             <li key={book.id}>
                                 <Book
                                     book={book}
-                                    shelf={book.shelf}
                                     onChangeShelf={this.props.onChangeShelf}/>
                             </li>
                         ))}

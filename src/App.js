@@ -7,7 +7,8 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
+    foundBooks: []
   }
 
   componentDidMount() {
@@ -18,11 +19,17 @@ class BooksApp extends React.Component {
 
     changeShelf = (book, newShelf) => {
         BooksAPI.update(book, newShelf).then(() => {        
-        book.shelf = newShelf;
-        this.setState(state => ({
-          books: state.books.filter(b => b.id !== book.id).concat([ book ])
-        }))
+            book.shelf = newShelf;
+            this.setState(state => ({
+                books: state.books.filter(b => b.id !== book.id).concat([ book ])
+            }))
         }) 
+    }
+    
+    getBooksByQuery = (query, maxBooksShown) => {
+        BooksAPI.search(query, maxBooksShown).then((foundBooks)=> {
+            this.setState({ foundBooks });
+        })
     }
 
   render() {
@@ -32,7 +39,7 @@ class BooksApp extends React.Component {
             <Bookcase books={this.state.books} onChangeShelf={this.changeShelf}/>
         )}/>
         <Route path='/search' render={({ history }) => (
-            <SearchBooks />
+            <SearchBooks foundBooks={this.state.foundBooks} onChangeShelf={this.changeShelf} getBooksByQuery={this.getBooksByQuery}/>
         )}/>
       </div>
     )
